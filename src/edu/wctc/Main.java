@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Player user = new Player();
         //Initialing the rooms for the maze, this maze is linear to ensure that moving between rooms is working
-        //Each rooom is initialized with a name, and a couple booleans for room customization
+        //Each room is initialized with a name, and a couple booleans for room customization
         Room room1 = new Room("room1", true, true) {
             @Override
             public String getDescription() {
@@ -46,9 +46,18 @@ public class Main {
                 return "Entrance";
             }
         };
-        //maze rooms alignment
+        Room room7 = new Room("room7", false, true, false) {
+            @Override
+            public String getDescription() {
+                return "Closet";
+            }
+        };
+
+        //maze room's alignment
         room1.setNorth(room2);
         room2.setSouth(room1);
+        room1.setEast(room7);
+        room7.setWest(room1);
         room2.setEast(room3);
         room3.setWest(room2);
         room3.setDown(room4);
@@ -80,13 +89,16 @@ public class Main {
                 System.out.println(myMaze.interactWithCurrentRoom());
 
             } else if (userResponse == 'l') {
+                //loot current room
                 System.out.println(myMaze.lootCurrentRoom());
             } else if (userResponse == 'x') {
                 if (myMaze.getCurrentRoom().getExit() == true) {
+                    //end result if you find the exit
                     System.out.println("You have left work for the day! Go enjoy your evening!");
                 } else System.out.println("This is not an exit, nice try.");
 
             } else if (userResponse == 'v') {
+                //displays inventory
                 System.out.println("Inventory:" + myMaze.Inventory());
             } else {
                 if (myMaze.getCurrentRoom().isValidDirection(userResponse)) {
@@ -97,7 +109,7 @@ public class Main {
             //clear some room in the terminal to enable easier reading
             System.out.println("");
 
-        } while (myMaze.isFinished() == false || userResponse != 'x');
+        } while (myMaze.isFinished() == false || userResponse != 'x'); //tests to see if you have exited and finished
 
 
 

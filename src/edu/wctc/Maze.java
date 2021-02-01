@@ -19,7 +19,7 @@ public class Maze implements Looting, Exit, Interact {
              player.newPlayerScore(10);
              return "You toggled the lights\n+10pts for interaction";
          }
-         else return "This room is NOT interactable";
+         else return "You are unable to interact with this room";
      }
      public String lootCurrentRoom(){
          if(currentRoom.lootable == true){
